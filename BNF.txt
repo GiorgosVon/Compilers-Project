@@ -1,0 +1,15 @@
+<program> ::= <class>
+	     |<program> <class>
+
+<assignment-operator> ::= =
+                        | *=
+                        | /=
+                        | %=
+                        | +=
+                        | -=
+
+
+<unary-operator> ::= &
+                   | *
+                   | +
+                   | -
