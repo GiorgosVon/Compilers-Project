@@ -1,12 +1,43 @@
-<program> ::= <class>
-	     |<program> <class>
+<PROGRAM> ::= 'PROGRAM' id <STARTMAIN ENDMAIN>
+         |'RPOGRAM' id <FUNCTION> <PROGRAM>
 
-<assignment-operator> ::= =
-                        | *=
-                        | /=
-                        | %=
-                        | +=
-                        | -=
+<FUNCTION> ::=  'FUNCTION' id <RETURN>
+                | 'VARS' <FUNCTION>
+                | <BODY> <FUNCTION>
+
+<VARS> ::= 'CHAR' <variable> ';'
+        | 'INTEGER' <variable> ';'
+
+<variables> =     <variable>
+                | <variable> ',' <variable>
+
+<variable> ::=   id
+               | id '[' int ']'
+
+<assignment> ::= <variable> '=' <right_hand_side> ';'
+
+<right_hand_side> ::= <variable>
+                    | integer
+                    | char
+                    | <ar_expression>
+                    | id '(' <variables> ')'           
+                    | id <operator> id
+
+<ar_expression> ::= integer
+		|- <ar_expression>
+		|+ <ar_expression>
+		|<ar_expression> + <ar_expression>
+		|<ar_expression> - <ar_expression>
+		|<ar_expression> * <ar_expression>
+		|<ar_expression> / <ar_expression>
+		|<ar_expression> % <ar_expression>
+
+<operator> ::=    '='
+                | '*'
+                | '/'
+                | '%'
+                | '+'
+                | '-'
 
 
 <unary-operator> ::= &
