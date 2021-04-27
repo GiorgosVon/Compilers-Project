@@ -1,43 +1,73 @@
 <PROGRAM> ::= 'PROGRAM' id <STARTMAIN ENDMAIN>
          |'RPOGRAM' id <FUNCTION> <PROGRAM>
 
-<FUNCTION> ::=  'FUNCTION' id <RETURN>
-                | 'VARS' <FUNCTION>
-                | <BODY> <FUNCTION>
+<FUNCTION> ::= 'FUNCTION' id '(' 'VARS' <VARS>')' <RETURN>'END_FUNCTION' <FUNCTION>
+        |'FUNCTION' id '(' 'VARS' <VARS>')'<BODY> <RETURN> 'END_FUNCTION' <FUNCTION>
 
-<VARS> ::= 'CHAR' <variable> ';'
-        | 'INTEGER' <variable> ';'
+<STARTMAIN ENDMAIN> ::= 'STARTMAIN' id '(' 'VARS' <VARS>')' <BODY> 'ENDMAIN'
 
-<variables> =     <variable>
+<VARS> ::= 'CHAR' <variables> ';'
+        | 'INTEGER' <variables> ';'
+
+<variables> ::=     <variable>
                 | <variable> ',' <variable>
 
 <variable> ::=   id
                | id '[' int ']'
 
+<BODY> ::= <stmt> <BODY> 
+
+<stmt> ::= <assignment>
+        |<loop_stmt>
+        |<check_stmt>
+        |<print>
+        |<break>
+        |<comments>
+
+<loop_stmt> ::= <while_loop>
+                |<for_loop>
+
+<check_stmt> ::= <if_stmt>
+                |<switch_stmt>
+
 <assignment> ::= <variable> '=' <right_hand_side> ';'
 
 <right_hand_side> ::= <variable>
-                    | integer
+                    | int
                     | char
                     | <ar_expression>
-                    | id '(' <variables> ')'           
-                    | id <operator> id
+                    | id '(' <VARS> ')'           
+                    | <variable> <operator> <variable>
 
-<ar_expression> ::= integer
+<while_loop> ::= 'WHILE' '(' <boolean_stmt> ')' <BODY> 'ENDWHILE'
+
+<for_loop> ::= 'FOR' _?_ 'TO' <variable> 'STEP' <variable> <BODY> 'ENDFOR'
+
+<if_stmt> ::= 'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ENDIF'
+        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ELSE' <BODY> 'ENDIF'
+        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ELSEIF' '(' <boolean_stmt> ')' <BODY> 'ELSE' <BODY> 'ENDIF'
+
+<switch_stmt> ::= 'SWITCH' '(' <veriable> ')' 'CASE' '(' <variable> ')' <BODY> 'ENDSWITCH'
+                |'SWITCH' '(' <veriable> ')' 'CASE' '(' <variable> ')' <BODY> 'DEFAULT' '(' <variable> ')' 'ENDSWITCH'
+
+<print> ::= ???
+
+<break> ::= 'BREAK' ';'
+
+<comments> ::= ???
+
+<ar_expression> ::= int
 		|- <ar_expression>
 		|+ <ar_expression>
-		|<ar_expression> + <ar_expression>
-		|<ar_expression> - <ar_expression>
-		|<ar_expression> * <ar_expression>
-		|<ar_expression> / <ar_expression>
-		|<ar_expression> % <ar_expression>
+		|<ar_expression> <operator> <ar_expression>
+                |'(' <ar_expression> <operator> <ar_expression> ')'
 
-<operator> ::=    '='
-                | '*'
+<operator> ::=    '*'
                 | '/'
                 | '%'
                 | '+'
                 | '-'
+                | '^'
 
 
 <unary-operator> ::= &
