@@ -1,13 +1,13 @@
 <PROGRAM> ::= 'PROGRAM' id <STARTMAIN ENDMAIN>
          |'RPOGRAM' id <FUNCTION> <PROGRAM>
 
-<FUNCTION> ::= 'FUNCTION' id '(' 'VARS' <VARS>')' <RETURN>'END_FUNCTION' <FUNCTION>
-        |'FUNCTION' id '(' 'VARS' <VARS>')'<BODY> <RETURN> 'END_FUNCTION' <FUNCTION>
+<FUNCTION> ::= 'FUNCTION' id '(' 'VARS' <VARS>')' <RETURN>'END_FUNCTION' <PROGRAM>
+        |'FUNCTION' id '(' 'VARS' <VARS>')'<BODY> <RETURN> 'END_FUNCTION' <PROGRAM>
 
 <STARTMAIN ENDMAIN> ::= 'STARTMAIN' id '(' 'VARS' <VARS>')' <BODY> 'ENDMAIN'
 
-<VARS> ::= 'CHAR' <variables> ';'
-        | 'INTEGER' <variables> ';'
+<VARS> ::= 'CHAR' <variables> 
+        | 'INTEGER' <variables> 
 
 <variables> ::=     <variable>
                 | <variable> ',' <variable>
@@ -36,7 +36,7 @@
                     | int
                     | char
                     | <ar_expression>
-                    | id '(' <VARS> ')'           
+                    | id '(' <VARS> ')'   ??????        
                     | <variable> <operator> <variable>
 
 <while_loop> ::= 'WHILE' '(' <boolean_stmt> ')' <BODY> 'ENDWHILE'
@@ -45,16 +45,22 @@
 
 <if_stmt> ::= 'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ENDIF'
         |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ELSE' <BODY> 'ENDIF'
-        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ELSEIF' '(' <boolean_stmt> ')' <BODY> 'ELSE' <BODY> 'ENDIF'
+        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> <elseif> 'ELSE' <BODY> 'ENDIF'
+<elseif> ::=  'ELSEIF' '(' <boolean_stmt> ')' <BODY>
+        | 'ELSEIF' '(' <boolean_stmt> ')' <BODY> <elseif>
 
-<switch_stmt> ::= 'SWITCH' '(' <veriable> ')' 'CASE' '(' <variable> ')' <BODY> 'ENDSWITCH'
-                |'SWITCH' '(' <veriable> ')' 'CASE' '(' <variable> ')' <BODY> 'DEFAULT' '(' <variable> ')' 'ENDSWITCH'
+<switch_stmt> ::= 'SWITCH' '(' <veriable> ')' <case> 'ENDSWITCH'
+                |'SWITCH' '(' <veriable> ')' <case> 'DEFAULT' '(' <variable> ')' 'ENDSWITCH'
+<case> ::= 'CASE' '(' <variable> ')' <BODY>
+        | 'CASE' '(' <variable> ')' <BODY> <case>
 
-<print> ::= ???
+<print> ::= 'PRINT''(' string ',' <variable> ')' ';'
 
 <break> ::= 'BREAK' ';'
 
-<comments> ::= ???
+<comments> ::= '%'string
+
+<boolean_stmt> ::=  <veriable> <unary-operator> <veriable>
 
 <ar_expression> ::= int
 		|- <ar_expression>
@@ -70,7 +76,9 @@
                 | '^'
 
 
-<unary-operator> ::= &
-                   | *
-                   | +
-                   | -
+<unary-operator> ::= 'AND'
+                   | 'OR"
+                   | '!='
+                   | '=='
+                   | '<'
+                   | '>'
