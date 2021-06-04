@@ -27,36 +27,36 @@
 
 %%
 
-PROGRAM: PROGRAM id 
-	|STARTMAIN_ENDMAIN 
-	|FUNCTIONS PROGRAM
+program: PROGRAM id 
+	|startmain_endmain 
+	|functions program
         ;
 
-FUNCTIONS: FUNCTIO
-        |FUNCTION FUNCTIONS
+functions: function
+        |function functions
         ;
 
-FUNCTION: FUNCTION id ( VARS VARS) RETURN END_FUNCTION
-        |FUNCTION id ( VARS VARS) BODY RETURN END_FUNCTION
+function: FUNCTION id '(' VARS vars')' RETURN end_function
+        |FUNCTION id '(' VARS vars')' body RETURN end_function
         ;
 
-STARTMAIN_ENDMAIN: STARTMAIN id ( VARS VARS) BODY ENDMAIN
+startmain_endmain: STARTMAIN id '(' VARS vars')' body ENDMAIN
         ;
 
-VARS: CHAR variables
+vars: CHAR variables
       | INTEGER variables
       ;
 
 variables: variable
-        | <variable> , <variable>
+        | variable ',' variable
         ;
 
 variable:   id
-        | id [ int ]
+        | id '[' int ']'
         ;
 
-BODY:   stmt 
-        |stmt BODY
+body:   stmt 
+        |stmt body
         ; 
 
 stmt: assignment
@@ -75,41 +75,41 @@ check_stmt: if_stmt
         |switch_stmt
         ;
 
-assignment: variable = right_hand_side 
+assignment: variable '=' right_hand_side 
         ;
 
 right_hand_side: variable
                 | int
                 | char
                 | <ar_expression>
-                | id ( VARS )      
+                | id '(' VARS ')'      
                 | variable operator variable
                 ;
 
-while_loop: WHILE ( boolean_stmt ) BODY ENDWHILE
+while_loop: WHILE '(' boolean_stmt ')' body ENDWHILE
         ;
 
-for_loop: FOR assignment TO int STEP int BODY ENDFOR
+for_loop: FOR assignment TO int STEP int body ENDFOR
         ;
 
-if_stmt: IF ( boolean_stmt ) THEN BODY ENDIF
-        |IF ( boolean_stmt ) THEN BODY ELSE BODY ENDIF
-        |IF ( boolean_stmt ) THEN BODY elseif ELSE BODY ENDIF
+if_stmt: IF '(' boolean_stmt ')' THEN body ENDIF
+        |IF '(' boolean_stmt ')' THEN body ELSE body ENDIF
+        |IF '(' boolean_stmt ')' THEN body elseif ELSE body ENDIF
         ;
 
-elseif: ELSEIF ( <boolean_stmt> ) BODY
-        |ELSEIF ( <boolean_stmt> ) BODY elseif
+elseif: ELSEIF '(' <boolean_stmt> ')' body
+        |ELSEIF '(' <boolean_stmt> ')' body elseif
         ;
 
-switch_stmt: SWITCH ( variable ) case ENDSWITCH
-        |SWITCH ( <variable> ) case DEFAULT ( <variable> ) ENDSWITCH
+switch_stmt: SWITCH '(' variable ')' case ENDSWITCH
+        |SWITCH '(' <variable> ')' case DEFAULT '(' <variable> ')' ENDSWITCH
         ;
 
-case: CASE ( variable ) BODY
-        | CASE ( <variable ) BODY case
+case: CASE '(' variable ')' body
+        | CASE '(' <variable ')' body case
         ;
 
-print: PRINT ( string , <variable> ) ;
+print: PRINT '(' string , <variable> ')' ;
         ;
 
 break: BREAK 
@@ -124,24 +124,24 @@ boolean_stmt:  variable unary-operator variable
 
 ar_expression: int
 	|ar_expression operator ar_expression
-        |( ar_expression operator ar_expression )
+        |'(' ar_expression operator ar_expression ')'
         ;
 
-operator: *
-        | /
-        | %
-        | +
-        | -
-        | ^
+operator: '*'
+        |'/'
+        | '%'
+        | '+'
+        | '-'
+        | '^'
         ;
 
 
-unary-operator: AND
-                | OR
-                | !=
-                | ==
-                | <
-                | >
+unary-operator: 'AND'
+                | 'OR'
+                | '!='
+                | '=='
+                | '<'
+                | '>'
                 ;
 
 %%
