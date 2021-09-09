@@ -1,8 +1,16 @@
 
 %{
 #include <stdio.h>
-#include <stdlib.h>
-							
+
+int yylex();
+int yyerror(char *s);
+
+extern FILE *yyin;
+extern FILE **yyout;
+extern char* yytext;
+extern int yylineno;
+extern int lineno;	
+						
 %}
 
 %start PROGRAM
