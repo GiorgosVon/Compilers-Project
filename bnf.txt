@@ -1,90 +1,36 @@
-<PROGRAM> ::= 'PROGRAM' id 
-	|<STARTMAIN ENDMAIN> 
-	|<FUNCTIONS> <PROGRAM>
+<PROGRAM> ::= <DECLARATIONS>
+<DECLARATIONS> ::= <DECLERATIONS> <DECLERATION> | <DECLERATION>
+<DECLERATION> ::= <VARIABLES> | <FUNCTION>
+<FUNCTION> ::= <TYPE> ID (PARAMETERS)  <STATEMENT> |ID (PARAMETERS) <STATEMENT>	
 
-<FUNCTIONS> ::= <FUNCTION>
-	       |<FUNCTION> <FUNCTIONS>
+<STATEMENTS> ::= <STATEMENTS> <STATEMENT>
+<STATEMENT> ::= <EXPRESSION> | <IF_STATEMENT> | <LOOP_STATEMENT> | <PRINT> | <SWITCH> | <BREAK>  | COMMENT
+<LOOP_STATEMENT> ::= for ID=range do <STATEMENT> | while <PLAIN_EXPRESSION> do <STATEMENT>
+<IF_STATEMENT> ::= if <PLAIN_EXPRESSION> then <STATEMENT> | if <PLAIN_EXPRESSION> then <STATEMENT> else <STATEMENT>
 
-<FUNCTION> ::= 'FUNCTION' id '(' 'VARS' <VARS>')' <RETURN>'END_FUNCTION'
-        |'FUNCTION' id '(' 'VARS' <VARS>')'<BODY> <RETURN> 'END_FUNCTION'
+<EXPRESSION_STATEMENT> ::= <EXPRESSION> ; | ;
+<EXPRESSION> = <VARIABLE> <EQUALS_OPERATOR> <EXPRESSION> | <VARIABLE> ++ | <VARIABLE> -- | <PLAIN_EXPRESSION>
 
-<STARTMAIN ENDMAIN> ::= 'STARTMAIN' id '(' 'VARS' <VARS>')' <BODY> 'ENDMAIN'
+<VARIABLES> ::= <VARIABLE>| <VARIABLE> ',' <VARIABLE>
+<VARIABLE> ::= ID | ID [ EXPRESSION ]
 
-<VARS> ::= 'CHAR' <variables> 
-      | 'INTEGER' <variables> 
+<PARAMETERS> ::= <PARAMETERS_LIST> ; <TYPELIST> | <TYPELIST>
+<PARAMETERS_LIST> ::= <TYPE> <ID_LIST>
+<ID_LIST> ::= <ID_LIST>, <PARAMETER_ID> | <PARAMETER_ID>
+<PARAMETER_ID> ::= ID| ID []
 
-<variables> ::=   <variable>
-                | <variable> ',' <variable>
+<TYPE> = int | char
 
-<variable> ::=   id
-               | id '[' int ']'
+<RETURN> ::= return ; | return <EXPRESSION>;
+<BREAK> ::= break
 
-<BODY> ::= <stmt> 
-	  |<stmt><BODY> 
+<PLAIN_EXPRESSION> ::= <PLAIN_EXPRESSION> or <AND_EXPRESSION> | <AND_EXPRESSION>
+<AND_EXPRESSION> ::= <AND_EXPRESSION> and <UNARY_EXPRESSION> | <UNARY_EXPRESSION>
+<UNARY_EXPRESSION> ::= not <UNARY_EXPRESSION> | <EXPRESSION>
 
-<stmt> ::= <assignment>
-        |<loop_stmt>
-        |<check_stmt>
-        |<print>
-        |<break>
-        |<comments>
+<MULTIPLY_EXPRESSION> ::= <MULTIPLY_EXPRESSION> <MULTIPLY_OPERATOR> <UNARY_EXPRESSION> | <UNARY_EXPRESSION>
+<MULTIPLY_OPERATOR> ::= * | / | %
+<UNARY_EXPRESSION> ::= <UNARY_OPERATOR> <UNARY_EXPRESSION> | <VARIABLE>
+<UNARY_OPERATOR> ::= - | * | ?
 
-<loop_stmt> ::= <while_loop>
-                |<for_loop>
-
-<check_stmt> ::= <if_stmt>
-                |<switch_stmt>
-
-<assignment> ::= <variable> '=' <right_hand_side> ';'
-
-<right_hand_side> ::= <variable>
-                    | int
-                    | char
-                    | <ar_expression>
-                    | id '(' <VARS> ')'   ??????        
-                    | <variable> <operator> <variable>
-
-<while_loop> ::= 'WHILE' '(' <boolean_stmt> ')' <BODY> 'ENDWHILE'
-
-<for_loop> ::= 'FOR' <assignment> 'TO' int 'STEP' int <BODY> 'ENDFOR'
-
-<if_stmt> ::= 'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ENDIF'
-        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> 'ELSE' <BODY> 'ENDIF'
-        |'IF' '(' <boolean_stmt> ')' 'THEN' <BODY> <elseif> 'ELSE' <BODY> 'ENDIF'
-
-<elseif> ::=  'ELSEIF' '(' <boolean_stmt> ')' <BODY>
-        | 'ELSEIF' '(' <boolean_stmt> ')' <BODY> <elseif>
-
-<switch_stmt> ::= 'SWITCH' '(' <variable> ')' <case> 'ENDSWITCH'
-                |'SWITCH' '(' <variable> ')' <case> 'DEFAULT' '(' <variable> ')' 'ENDSWITCH'
-
-<case> ::= 'CASE' '(' <variable> ')' <BODY>
-        | 'CASE' '(' <variable> ')' <BODY> <case>
-
-<print> ::= 'PRINT''(' string ',' <variable> ')' ';'
-
-<break> ::= 'BREAK' ';'
-
-<comments> ::= '%'string
-
-<boolean_stmt> ::=  <variable> <unary-operator> <variable>
-                |   <variable> <unary-operator> <variable> <boolean_stmt>
-
-<ar_expression> ::= int
-		|<ar_expression> <operator> <ar_expression>
-                |'(' <ar_expression> <operator> <ar_expression> ')'
-
-<operator> ::=    '*'
-                | '/'
-                | '%'
-                | '+'
-                | '-'
-                | '^'
-
-
-<unary-operator> ::= 'AND'
-                   | 'OR"
-                   | '!='
-                   | '=='
-                   | '<'
-                   | '>'
+<EQUALS_OPERATOR> ::= '=' | '+=' | '-=' | '*=' | '/='

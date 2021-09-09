@@ -1,3 +1,20 @@
+%{
+
+#include <stdio.h>
+#include <string.h>
+
+int lineno = 1; 
+
+void showError();
+
+
+%}
+
+%option noyywrap yylineno
+
+%x comments
+%x MULTILINE_COMMENT
+
 digit   	[0-9]
 int		    [0-9]+
 float		[0-9]+\.[0-9]+
@@ -10,6 +27,8 @@ whitespace  [ \t\r\v\f]
 
 
 %%
+
+
 "INT"  		{return (INT);}
 "FLOAT" 	{return (FLOAT);}
 "CHAR"  	{return (CHAR);}
@@ -44,3 +63,7 @@ whitespace  [ \t\r\v\f]
 
 
 %%
+
+void showError() {
+    // printf("Unrecognized token\n");
+}
