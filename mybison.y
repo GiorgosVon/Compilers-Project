@@ -17,17 +17,9 @@ extern int lineno;
 %token VARS FUNCTION STARTMAIN ENDMAIN WORD 
 %token INT NEWLINE RETURN SEMICOLON STRUCT ENDSTRUCT
 %token L_PAR R_PAR COMMENT WHILE ENDWHILE FOR ENDFOR 
-%token IF THEN ENDIF
-%token ELSEIF
-%token ELSE
-%token ENDIF
-%token SWITCH
-%token CASE
-%token ENDSWITCH
-%token FOR
-%token WHILE
-%token PRINT
-%token BREAK
+%token IF THEN ENDIF SWITCH ENDSWITCH COLON DEFAULT 
+%token ELSEIF ELSE ENDIF CASE PRINT DITTOS L_BRACKET
+%token R_BRACKET BREAK COMMA 
 %token %
 
 %type <a> WORD
@@ -48,127 +40,29 @@ statement:              variable | expression | loop_statement | if_statement | 
 loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For \n"); };
 if_statement:           IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
                         | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statementes NEWLINE ENDIF { printf("If \n"); }
+                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statementes NEWLINE ENDIF  { printf("If \n"); };
+elseif:                 elseif NEWLINE ELSEIF NEWLINE statement | ELSEIF NEWLINE statement ;
+switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch \n"); } | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
+case:                   case NEWLINE CASE L_PAR expressions R_PAR COLON NEWLINE statement | CASE L_PAR expressions R_PAR COLON NEWLINE statement;
+
+print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("Print \n"); } | PRINT L_PAR DITTOS txt DITTOS L_BRACKET COMMA WORD R_BRACKET R_PAR SEMICOLON { printf("Print \n"); };
+
 
 variables:              variables variable | variable | ;
-
-parameters:
-
-spaces: 
-
+spaces:                 spaces space | space;
+space:                  ;
+txt:                    txt WORD | WORD;
+break:                  BREAK SEMICOLON ;
+condition:              AND | OR | COMPAREOPERATORS;
+expression:             variable ASSIGN_OPERATOR expression | right_hand_expression;
+right_hand_expression:  funcall | expressions;
+expressions:            INT | WORD | SUM | MUL | L_PAR | R_PAR | expressions SEMICOLON;
+funcall:                WORD L_PAR arguments R_PAR SEMICOLON;
+arguments:              arguments COMMA WORD | WORD;
+parameters:             parameters COMMA parameters_list | parameters_list;
+parameters_list:        type WORD;
+type:                   INT | CHAR;
+variable:               VARS type decleration SEMICOLON;
+declerations:           declerations COMMA decleration | decleration;
+decleration:            WORD | WORD L_BRACKET INT R_BRACKET;
 newline:                newline NEWLINE | NEWLINE; 
-
-
-
-functions: function
-        |function functions
-        ;
-
-function: FUNCTION id '(' VARS vars')' RETURN end_function
-        |FUNCTION id '(' VARS vars')' body RETURN end_function
-        ;
-
-startmain_endmain: STARTMAIN id '(' VARS vars')' body ENDMAIN
-        ;
-
-vars: CHAR variables
-      | INTEGER variables
-      ;
-
-variables: variable
-        | variable ',' variable
-        ;
-
-variable:   id
-        | id '[' int ']'
-        ;
-
-body:   stmt 
-        |stmt body
-        ; 
-
-stmt: assignment
-        |loop_stmt
-        |check_stmt
-        |print
-        |break
-        |comments
-        ;
-
-loop_stmt: while_loop
-        |for_loop
-        ;
-
-check_stmt: if_stmt
-        |switch_stmt
-        ;
-
-assignment: variable '=' right_hand_side 
-        ;
-
-right_hand_side: variable
-                | int
-                | char
-                | <ar_expression>
-                | id '(' VARS ')'      
-                | variable operator variable
-                ;
-
-while_loop: WHILE '(' boolean_stmt ')' body ENDWHILE
-        ;
-
-for_loop: FOR assignment TO int STEP int body ENDFOR
-        ;
-
-if_stmt: IF '(' boolean_stmt ')' THEN body ENDIF
-        |IF '(' boolean_stmt ')' THEN body ELSE body ENDIF
-        |IF '(' boolean_stmt ')' THEN body elseif ELSE body ENDIF
-        ;
-
-elseif: ELSEIF '(' <boolean_stmt> ')' body
-        |ELSEIF '(' <boolean_stmt> ')' body elseif
-        ;
-
-switch_stmt: SWITCH '(' variable ')' case ENDSWITCH
-        |SWITCH '(' <variable> ')' case DEFAULT '(' <variable> ')' ENDSWITCH
-        ;
-
-case: CASE '(' variable ')' body
-        | CASE '(' <variable ')' body case
-        ;
-
-print: PRINT '(' string , <variable> ')' ;
-        ;
-
-break: BREAK 
-        ;
-
-comments: %string
-        ;
-
-boolean_stmt:  variable unary-operator variable
-        |variable unary-operator variable boolean_stmt
-        ;
-
-ar_expression: int
-	|ar_expression operator ar_expression
-        |'(' ar_expression operator ar_expression ')'
-        ;
-
-operator: '*'
-        |'/'
-        | '%'
-        | '+'
-        | '-'
-        | '^'
-        ;
-
-
-unary-operator: 'AND'
-                | 'OR'
-                | '!='
-                | '=='
-                | '<'
-                | '>'
-                ;
-
-%%
