@@ -13,14 +13,21 @@ extern int lineno;
 						
 %}
 
-%start PROGRAM
-%token VARS FUNCTION STARTMAIN ENDMAIN WORD 
+%token PROGRAM
+%token VARS FUNCTION STARTMAIN ENDMAIN WORD END_FUNCTION
 %token INT NEWLINE RETURN SEMICOLON STRUCT ENDSTRUCT
 %token L_PAR R_PAR COMMENT WHILE ENDWHILE FOR ENDFOR 
 %token IF THEN ENDIF SWITCH ENDSWITCH COLON DEFAULT 
-%token ELSEIF ELSE ENDIF CASE PRINT DITTOS L_BRACKET
-%token R_BRACKET BREAK COMMA 
-%token %
+%token ELSEIF ELSE CASE PRINT DITTOS L_BRACKET TO STEP
+%token R_BRACKET BREAK COMMA TYPEDEF ASSIGN_OPERATOR
+%token AND OR COMPAREOPERATORS SUM MUL CHAR
+
+
+
+%union {
+    char *a;
+    int i;
+}
 
 %type <a> WORD
 %type <i> INT
@@ -39,8 +46,8 @@ statements:             statements spaces statement | statement | ;
 statement:              variable | expression | loop_statement | if_statement | switch | print | break | COMMENT { printf("Comment\n"); };
 loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For \n"); };
 if_statement:           IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
-                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statementes NEWLINE ENDIF { printf("If \n"); }
-                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statementes NEWLINE ENDIF  { printf("If \n"); };
+                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
+                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statements NEWLINE ENDIF  { printf("If \n"); };
 elseif:                 elseif NEWLINE ELSEIF NEWLINE statement | ELSEIF NEWLINE statement ;
 switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch \n"); } | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
 case:                   case NEWLINE CASE L_PAR expressions R_PAR COLON NEWLINE statement | CASE L_PAR expressions R_PAR COLON NEWLINE statement;
@@ -66,3 +73,22 @@ variable:               VARS type decleration SEMICOLON;
 declerations:           declerations COMMA decleration | decleration;
 decleration:            WORD | WORD L_BRACKET INT R_BRACKET;
 newline:                newline NEWLINE | NEWLINE; 
+
+
+%% 
+
+int yyerror(char *s) {
+    fprintf(stderr, "%s in line %d\n", s, yylineno);
+    return 0;
+}
+
+int main(int argc, char **argv) {
+    printf("C Set Parser\n\n");
+    if (argc > 1) {
+        yyin = fopen(argv[1], "r");
+    } else {
+        yyin = stdin;
+    }
+    yyparse();
+    return 0;
+}
