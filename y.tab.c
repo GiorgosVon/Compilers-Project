@@ -613,14 +613,14 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    38,    38,    39,    39,    39,    39,    39,    40,    41,
-      42,    42,    43,    43,    45,    45,    45,    46,    46,    46,
-      46,    46,    46,    46,    46,    47,    47,    48,    49,    50,
-      51,    51,    52,    52,    53,    53,    55,    55,    58,    58,
-      58,    59,    59,    60,    61,    61,    62,    63,    63,    63,
-      64,    64,    65,    65,    66,    66,    66,    66,    66,    66,
-      66,    67,    68,    68,    69,    69,    70,    71,    71,    72,
-      73,    73,    74,    74,    75,    75
+       0,    36,    36,    37,    37,    37,    37,    37,    38,    39,
+      40,    40,    41,    41,    43,    43,    43,    44,    44,    44,
+      44,    44,    44,    44,    44,    45,    45,    46,    47,    48,
+      49,    49,    50,    50,    51,    51,    53,    53,    56,    56,
+      56,    57,    57,    58,    59,    59,    60,    61,    61,    61,
+      62,    62,    63,    63,    64,    64,    64,    64,    64,    64,
+      64,    65,    66,    66,    67,    67,    68,    69,    69,    70,
+      71,    71,    72,    72,    73,    73
 };
 #endif
 
@@ -1551,85 +1551,85 @@ yyreduce:
   switch (yyn)
     {
   case 8:
-#line 40 "mybison.y"
+#line 38 "mybison.y"
                                                                                                                                          { printf("Function creation"); }
 #line 1557 "y.tab.c"
     break;
 
   case 9:
-#line 41 "mybison.y"
+#line 39 "mybison.y"
                                                                    { printf("Main \n"); }
 #line 1563 "y.tab.c"
     break;
 
   case 12:
-#line 43 "mybison.y"
+#line 41 "mybison.y"
                                                                        { printf("Struct \n"); }
 #line 1569 "y.tab.c"
     break;
 
   case 13:
-#line 43 "mybison.y"
+#line 41 "mybison.y"
                                                                                                                                                               { printf("Struct \n"); }
 #line 1575 "y.tab.c"
     break;
 
   case 24:
-#line 46 "mybison.y"
+#line 44 "mybison.y"
                                                                                                                  { printf("Comment\n"); }
 #line 1581 "y.tab.c"
     break;
 
   case 25:
-#line 47 "mybison.y"
+#line 45 "mybison.y"
                                                                                                          { printf("While\n"); }
 #line 1587 "y.tab.c"
     break;
 
   case 26:
-#line 47 "mybison.y"
+#line 45 "mybison.y"
                                                                                                                                                                                                                  { printf("For \n"); }
 #line 1593 "y.tab.c"
     break;
 
   case 27:
-#line 48 "mybison.y"
+#line 46 "mybison.y"
                                                                                                         { printf("If \n"); }
 #line 1599 "y.tab.c"
     break;
 
   case 28:
-#line 49 "mybison.y"
+#line 47 "mybison.y"
                                                                                                                                                          { printf("If \n"); }
 #line 1605 "y.tab.c"
     break;
 
   case 29:
-#line 50 "mybison.y"
+#line 48 "mybison.y"
                                                                                                                                    { printf("If \n"); }
 #line 1611 "y.tab.c"
     break;
 
   case 32:
-#line 52 "mybison.y"
+#line 50 "mybison.y"
                                                                                           { printf("Switch \n"); }
 #line 1617 "y.tab.c"
     break;
 
   case 33:
-#line 52 "mybison.y"
+#line 50 "mybison.y"
                                                                                                                                                                                                                      { printf("Switch \n"); }
 #line 1623 "y.tab.c"
     break;
 
   case 36:
-#line 55 "mybison.y"
+#line 53 "mybison.y"
                                                                       { printf("Print \n"); }
 #line 1629 "y.tab.c"
     break;
 
   case 37:
-#line 55 "mybison.y"
+#line 53 "mybison.y"
                                                                                                                                                                              { printf("Print \n"); }
 #line 1635 "y.tab.c"
     break;
@@ -1867,7 +1867,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 78 "mybison.y"
+#line 76 "mybison.y"
  
 
 int yyerror(char *s) {

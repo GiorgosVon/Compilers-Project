@@ -29,8 +29,6 @@ extern int lineno;
     int i;
 }
 
-%type <a> WORD
-%type <i> INT
 
 
 %%
