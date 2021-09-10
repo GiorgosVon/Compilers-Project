@@ -14,12 +14,10 @@ extern int lineno;
 %}
 
 %start PROGRAM
-%token FUNCTION
-%token VARS
-%token INT
-%token FLOAT
-%token CHAR
-%token IF 
+%token VARS FUNCTION STARTMAIN ENDMAIN WORD 
+%token INT NEWLINE RETURN SEMICOLON STRUCT ENDSTRUCT
+%token L_PAR R_PAR COMMENT WHILE ENDWHILE FOR ENDFOR 
+%token IF THEN ENDIF
 %token ELSEIF
 %token ELSE
 %token ENDIF
@@ -32,13 +30,34 @@ extern int lineno;
 %token BREAK
 %token %
 
+%type <a> WORD
+%type <i> INT
+
 
 %%
 
-program: PROGRAM id 
-	|startmain_endmain 
-	|functions program
-        ;
+program:                PROGRAM WORD newline declerations spaces mainDecleration;
+declerations:           structDecleration spaces functionDecleration | declerations spaces functionDecleration | functionDecleration | structDecleration | ;
+functionDecleration:    FUNCTION WORD L_PAR parameters R_PAR NEWLINE statements spaces RETURN expressions SEMICOLON NEWLINE END_FUNCTION { printf("Function creation"); };
+mainDecleration:        STARTMAIN spaces statements spaces ENDMAIN { printf("Main \n"); };
+structDecleration:      structDecleration spaces struct | struct;
+struct:                 STRUCT WORD NEWLINE variables spaces ENDSTRUCT { printf("Struct \n"); } | TYPEDEF STRUCT WORD NEWLINE variables spaces WORD ENDSTRUCT { printf("Struct \n"); };
+
+statements:             statements spaces statement | statement | ;
+statement:              variable | expression | loop_statement | if_statement | switch | print | break | COMMENT { printf("Comment\n"); };
+loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For \n"); };
+if_statement:           IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
+                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statementes NEWLINE ENDIF { printf("If \n"); }
+
+variables:              variables variable | variable | ;
+
+parameters:
+
+spaces: 
+
+newline:                newline NEWLINE | NEWLINE; 
+
+
 
 functions: function
         |function functions

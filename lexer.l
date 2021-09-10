@@ -15,14 +15,13 @@ void showError();
 %x comments
 %x MULTILINE_COMMENT
 
-digit   	[0-9]
-int		    [0-9]+
-float		[0-9]+\.[0-9]+
-alpha		[a-zA-Z]
-word		{alpha}+
-variable	({word}|"_")+({word}|"_"|{int})*
-id          [a-zA-Z_][a-zA-Z_0-9]*
-whitespace  [ \t\r\v\f]
+DIGITS  	([0-9])+
+WORD        ([a-zA-Z0-9_])+
+COMMENT     "%".*
+SUM         [-+]
+MUL         [/^*]
+MARKS       ["]
+
 
 
 

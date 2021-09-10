@@ -33,4 +33,4 @@
 <UNARY_EXPRESSION> ::= <UNARY_OPERATOR> <UNARY_EXPRESSION> | <VARIABLE>
 <UNARY_OPERATOR> ::= - | * | ?
 
-<EQUALS_OPERATOR> ::= '=' | '+=' | '-=' | '*=' | '/='
+<ASSIGN_OPERATOR> ::= '=' | '+=' | '-=' | '*=' | '/='
