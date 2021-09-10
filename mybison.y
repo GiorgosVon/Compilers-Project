@@ -22,6 +22,8 @@ extern int lineno;
 %token R_BRACKET BREAK COMMA TYPEDEF ASSIGN_OPERATOR
 %token AND OR COMPAREOPERATORS SUM MUL CHAR
 
+%type <a> WORD
+%type <i> INT
 
 
 %union {
@@ -67,9 +69,9 @@ arguments:              arguments COMMA WORD | WORD;
 parameters:             parameters COMMA parameters_list | parameters_list;
 parameters_list:        type WORD;
 type:                   INT | CHAR;
-variable:               VARS type decleration SEMICOLON;
-declerations:           declerations COMMA decleration | decleration;
-decleration:            WORD | WORD L_BRACKET INT R_BRACKET;
+variable:               VARS type vardeclerations SEMICOLON;
+vardeclerations:        vardeclerations COMMA vardecleration | vardecleration;
+vardecleration:         WORD | WORD L_BRACKET INT R_BRACKET;
 newline:                newline NEWLINE | NEWLINE; 
 
 
