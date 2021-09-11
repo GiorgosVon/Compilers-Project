@@ -8,7 +8,7 @@ FUNCTION function(INT a,INT b)
 VARS INT var1,var2,var45[10],var46;
 VARS CHAR var24,var[20]; 
 
-/* sxolio */
+
 
 IF(a<1) THEN
 B=2;
@@ -58,8 +58,8 @@ ENDIF
 RETURN b;
 END_FUNCTION
 
-FUNCTION function2(INTEGER a,INTEGER b)
-VARS INTEGER var1,var2,var45[10],var46;
+FUNCTION function2(INT a,INT b)
+VARS INT var1,var2,var45[10],var46;
 RETURN b;
 END_FUNCTION
 

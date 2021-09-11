@@ -558,7 +558,7 @@ static const flex_int16_t yy_chk[242] =
 static const flex_int32_t yy_rule_can_match_eol[54] =
     {   0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
@@ -1060,9 +1060,11 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 /* rule 37 can match eol */
-#line 71 "lexer.l"
+YY_RULE_SETUP
+#line 70 "lexer.l"
+{return (NEWLINE); }
+	YY_BREAK
 case 38:
-/* rule 38 can match eol */
 YY_RULE_SETUP
 #line 71 "lexer.l"
 {return (SEMICOLON); }
@@ -1143,7 +1145,7 @@ YY_RULE_SETUP
 #line 90 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 1147 "lex.yy.c"
+#line 1149 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(comments):
 case YY_STATE_EOF(MULTILINE_COMMENT):
@@ -2168,3 +2170,5 @@ void yyfree (void * ptr )
 void showError() {
     // printf("Unrecognized token\n");
 }
+
+

@@ -67,7 +67,7 @@ DITTOS      ["]
 {MUL}           {return (MUL); }
 {DITTOS}        {return (DITTOS); }
 
-"\n" | "\r\n"                   {return (NEWLINE); }
+"\n"                            {return (NEWLINE); }
 ";"                             {return (SEMICOLON); }
 ")"                             {return (R_PAR); }
 "("                             {return (L_PAR); }
@@ -92,3 +92,4 @@ DITTOS      ["]
 void showError() {
     // printf("Unrecognized token\n");
 }
+

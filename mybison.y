@@ -36,7 +36,8 @@ extern int lineno;
 %%
 
 program:                PROGRAM WORD newline declerations spaces mainDecleration;
-declerations:           structDecleration spaces functionDecleration | declerations spaces functionDecleration | functionDecleration | structDecleration | ;
+declerations:           structDecleration spaces decl | declerations spaces decl | decl | structDecleration | /* empty */;
+decl:                   functionDecleration;
 functionDecleration:    FUNCTION WORD L_PAR parameters R_PAR NEWLINE statements spaces RETURN expressions SEMICOLON NEWLINE END_FUNCTION { printf("Function creation"); };
 mainDecleration:        STARTMAIN spaces statements spaces ENDMAIN { printf("Main \n"); };
 structDecleration:      structDecleration spaces struct | struct;
@@ -56,23 +57,26 @@ print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("
 
 
 variables:              variables variable | variable | ;
-spaces:                 spaces space | space;
-space:                  ;
+spaces:                 spaces newline | spaces space | newline | space;
+newline:                newline NEWLINE | NEWLINE; 
+space:                  space empty | empty;
+empty:                  /* empty */;
 txt:                    txt WORD | WORD;
 break:                  BREAK SEMICOLON ;
 condition:              AND | OR | COMPAREOPERATORS;
-expression:             variable ASSIGN_OPERATOR expression | right_hand_expression;
+expression:             vardecleration ASSIGN_OPERATOR expression | right_hand_expression;
 right_hand_expression:  funcall | expressions;
 expressions:            INT | WORD | SUM | MUL | L_PAR | R_PAR | expressions SEMICOLON;
 funcall:                WORD L_PAR arguments R_PAR SEMICOLON;
 arguments:              arguments COMMA WORD | WORD;
 parameters:             parameters COMMA parameters_list | parameters_list;
 parameters_list:        type WORD;
+variable:               VARS type vardeclerations SEMICOLON { printf("Var definition\n"); };
 type:                   INT | CHAR;
-variable:               VARS type vardeclerations SEMICOLON;
-vardeclerations:        vardeclerations COMMA vardecleration | vardecleration;
+vardeclerations:        vardeclerations COMMA varDeclInit | varDeclInit;
+varDeclInit:            vardecleration;
 vardecleration:         WORD | WORD L_BRACKET INT R_BRACKET;
-newline:                newline NEWLINE | NEWLINE; 
+
 
 
 %% 
