@@ -1564,7 +1564,7 @@ yyreduce:
     {
   case 9:
 #line 41 "mybison.y"
-                                                                                                                                         { printf("Function creation"); }
+                                                                                                                                         { printf("Function creation\n"); }
 #line 1569 "y.tab.c"
     break;
 
@@ -1576,31 +1576,31 @@ yyreduce:
 
   case 13:
 #line 44 "mybison.y"
-                                                                       { printf("Struct \n"); }
+                                                                       { printf("Struct decleration\n"); }
 #line 1581 "y.tab.c"
     break;
 
   case 14:
 #line 44 "mybison.y"
-                                                                                                                                                              { printf("Struct \n"); }
+                                                                                                                                                                         { printf("Struct \n"); }
 #line 1587 "y.tab.c"
     break;
 
   case 25:
 #line 47 "mybison.y"
-                                                                                                                 { printf("Comment\n"); }
+                                                                                                                 { printf("Comments\n"); }
 #line 1593 "y.tab.c"
     break;
 
   case 26:
 #line 48 "mybison.y"
-                                                                                                         { printf("While\n"); }
+                                                                                                         { printf("While decleration\n"); }
 #line 1599 "y.tab.c"
     break;
 
   case 27:
 #line 48 "mybison.y"
-                                                                                                                                                                                                                 { printf("For \n"); }
+                                                                                                                                                                                                                             { printf("For decleration\n"); }
 #line 1605 "y.tab.c"
     break;
 
@@ -1618,37 +1618,37 @@ yyreduce:
 
   case 30:
 #line 51 "mybison.y"
-                                                                                                                                   { printf("If \n"); }
+                                                                                                                                   { printf("If decleration\n"); }
 #line 1623 "y.tab.c"
     break;
 
   case 33:
 #line 53 "mybison.y"
-                                                                                          { printf("Switch \n"); }
+                                                                                          { printf("Switch decleration\n"); }
 #line 1629 "y.tab.c"
     break;
 
   case 34:
 #line 53 "mybison.y"
-                                                                                                                                                                                                                     { printf("Switch \n"); }
+                                                                                                                                                                                                                                { printf("Switch \n"); }
 #line 1635 "y.tab.c"
     break;
 
   case 37:
 #line 56 "mybison.y"
-                                                                      { printf("Print \n"); }
+                                                                      { printf("Something was printed\n"); }
 #line 1641 "y.tab.c"
     break;
 
   case 38:
 #line 56 "mybison.y"
-                                                                                                                                                                             { printf("Print \n"); }
+                                                                                                                                                                                            { printf("Something was printed \n"); }
 #line 1647 "y.tab.c"
     break;
 
   case 74:
 #line 74 "mybison.y"
-                                                            { printf("Var definition\n"); }
+                                                            { printf("Variable declerations\n"); }
 #line 1653 "y.tab.c"
     break;
 

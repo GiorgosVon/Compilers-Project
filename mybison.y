@@ -38,22 +38,22 @@ extern int lineno;
 program:                PROGRAM WORD newline declerations spaces mainDecleration;
 declerations:           structDecleration spaces decl | declerations spaces decl | decl | structDecleration | /* empty */;
 decl:                   functionDecleration;
-functionDecleration:    FUNCTION WORD L_PAR parameters R_PAR NEWLINE statements spaces RETURN expressions SEMICOLON NEWLINE END_FUNCTION { printf("Function creation"); };
+functionDecleration:    FUNCTION WORD L_PAR parameters R_PAR NEWLINE statements spaces RETURN expressions SEMICOLON NEWLINE END_FUNCTION { printf("Function creation\n"); };
 mainDecleration:        STARTMAIN spaces statements spaces ENDMAIN { printf("Main \n"); };
 structDecleration:      structDecleration spaces struct | struct;
-struct:                 STRUCT WORD NEWLINE variables spaces ENDSTRUCT { printf("Struct \n"); } | TYPEDEF STRUCT WORD NEWLINE variables spaces WORD ENDSTRUCT { printf("Struct \n"); };
+struct:                 STRUCT WORD NEWLINE variables spaces ENDSTRUCT { printf("Struct decleration\n"); } | TYPEDEF STRUCT WORD NEWLINE variables spaces WORD ENDSTRUCT { printf("Struct \n"); };
 
 statements:             statements spaces statement | statement | ;
-statement:              variable | expression | loop_statement | if_statement | switch | print | break | COMMENT { printf("Comment\n"); };
-loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For \n"); };
+statement:              variable | expression | loop_statement | if_statement | switch | print | break | COMMENT { printf("Comments\n"); };
+loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While decleration\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For decleration\n"); };
 if_statement:           IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
                         | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
-                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statements NEWLINE ENDIF  { printf("If \n"); };
+                        | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statements NEWLINE ENDIF  { printf("If decleration\n"); };
 elseif:                 elseif NEWLINE ELSEIF NEWLINE statement | ELSEIF NEWLINE statement ;
-switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch \n"); } | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
+switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch decleration\n"); } | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
 case:                   case NEWLINE CASE L_PAR expressions R_PAR COLON NEWLINE statement | CASE L_PAR expressions R_PAR COLON NEWLINE statement;
 
-print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("Print \n"); } | PRINT L_PAR DITTOS txt DITTOS L_BRACKET COMMA WORD R_BRACKET R_PAR SEMICOLON { printf("Print \n"); };
+print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("Something was printed\n"); } | PRINT L_PAR DITTOS txt DITTOS L_BRACKET COMMA WORD R_BRACKET R_PAR SEMICOLON { printf("Something was printed \n"); };
 
 
 variables:              variables variable | variable | ;
@@ -71,7 +71,7 @@ funcall:                WORD L_PAR arguments R_PAR SEMICOLON;
 arguments:              arguments COMMA WORD | WORD;
 parameters:             parameters COMMA parameters_list | parameters_list;
 parameters_list:        type WORD;
-variable:               VARS type vardeclerations SEMICOLON { printf("Var definition\n"); };
+variable:               VARS type vardeclerations SEMICOLON { printf("Variable declerations\n"); };
 type:                   INT | CHAR;
 vardeclerations:        vardeclerations COMMA varDeclInit | varDeclInit;
 varDeclInit:            vardecleration;
