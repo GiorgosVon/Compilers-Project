@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 2 "mybison.y"
+#line 1 "mybison.y"
 
 #include <stdio.h>
 
@@ -228,7 +228,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 29 "mybison.y"
+#line 28 "mybison.y"
 
     char *a;
     int i;
@@ -613,15 +613,15 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    38,    38,    39,    39,    39,    39,    39,    40,    41,
-      42,    43,    43,    44,    44,    46,    46,    46,    47,    47,
-      47,    47,    47,    47,    47,    47,    48,    48,    49,    50,
-      51,    52,    52,    53,    53,    54,    54,    56,    56,    59,
-      59,    59,    60,    60,    60,    60,    61,    61,    62,    62,
-      63,    64,    64,    65,    66,    66,    66,    67,    67,    68,
-      68,    69,    69,    69,    69,    69,    69,    69,    70,    71,
-      71,    72,    72,    73,    74,    75,    75,    76,    76,    77,
-      78,    78
+       0,    37,    37,    38,    38,    38,    38,    38,    39,    40,
+      41,    42,    42,    43,    44,    46,    46,    46,    47,    47,
+      47,    47,    47,    47,    47,    47,    48,    49,    50,    51,
+      52,    53,    53,    54,    55,    56,    56,    58,    59,    62,
+      62,    62,    63,    63,    63,    63,    64,    64,    65,    65,
+      66,    67,    67,    68,    69,    69,    69,    70,    70,    71,
+      71,    72,    72,    72,    72,    72,    72,    72,    73,    74,
+      74,    75,    75,    76,    77,    78,    78,    79,    79,    80,
+      81,    81
 };
 #endif
 
@@ -1563,26 +1563,26 @@ yyreduce:
   switch (yyn)
     {
   case 9:
-#line 41 "mybison.y"
+#line 40 "mybison.y"
                                                                                                                                          { printf("Function creation\n"); }
 #line 1569 "y.tab.c"
     break;
 
   case 10:
-#line 42 "mybison.y"
+#line 41 "mybison.y"
                                                                    { printf("Main \n"); }
 #line 1575 "y.tab.c"
     break;
 
   case 13:
-#line 44 "mybison.y"
+#line 43 "mybison.y"
                                                                        { printf("Struct decleration\n"); }
 #line 1581 "y.tab.c"
     break;
 
   case 14:
 #line 44 "mybison.y"
-                                                                                                                                                                         { printf("Struct \n"); }
+                                                                                      { printf("Struct \n"); }
 #line 1587 "y.tab.c"
     break;
 
@@ -1599,55 +1599,55 @@ yyreduce:
     break;
 
   case 27:
-#line 48 "mybison.y"
-                                                                                                                                                                                                                             { printf("For decleration\n"); }
+#line 49 "mybison.y"
+                                                                                 { printf("For decleration\n"); }
 #line 1605 "y.tab.c"
     break;
 
   case 28:
-#line 49 "mybison.y"
+#line 50 "mybison.y"
                                                                                                         { printf("If \n"); }
 #line 1611 "y.tab.c"
     break;
 
   case 29:
-#line 50 "mybison.y"
+#line 51 "mybison.y"
                                                                                                                                                          { printf("If \n"); }
 #line 1617 "y.tab.c"
     break;
 
   case 30:
-#line 51 "mybison.y"
+#line 52 "mybison.y"
                                                                                                                                    { printf("If decleration\n"); }
 #line 1623 "y.tab.c"
     break;
 
   case 33:
-#line 53 "mybison.y"
+#line 54 "mybison.y"
                                                                                           { printf("Switch decleration\n"); }
 #line 1629 "y.tab.c"
     break;
 
   case 34:
-#line 53 "mybison.y"
-                                                                                                                                                                                                                                { printf("Switch \n"); }
+#line 55 "mybison.y"
+                                                                                                                          { printf("Switch \n"); }
 #line 1635 "y.tab.c"
     break;
 
   case 37:
-#line 56 "mybison.y"
+#line 58 "mybison.y"
                                                                       { printf("Something was printed\n"); }
 #line 1641 "y.tab.c"
     break;
 
   case 38:
-#line 56 "mybison.y"
-                                                                                                                                                                                            { printf("Something was printed \n"); }
+#line 59 "mybison.y"
+                                                                                                       { printf("Something was printed \n"); }
 #line 1647 "y.tab.c"
     break;
 
   case 74:
-#line 74 "mybison.y"
+#line 77 "mybison.y"
                                                             { printf("Variable declerations\n"); }
 #line 1653 "y.tab.c"
     break;
@@ -1885,7 +1885,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 82 "mybison.y"
+#line 85 "mybison.y"
  
 
 int yyerror(char *s) {
@@ -1894,7 +1894,7 @@ int yyerror(char *s) {
 }
 
 int main(int argc, char **argv) {
-    printf("C Set Parser\n\n");
+    printf("C Parser\n\n");
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
     } else {

@@ -1,4 +1,3 @@
-
 %{
 #include <stdio.h>
 
@@ -41,19 +40,23 @@ decl:                   functionDecleration;
 functionDecleration:    FUNCTION WORD L_PAR parameters R_PAR NEWLINE statements spaces RETURN expressions SEMICOLON NEWLINE END_FUNCTION { printf("Function creation\n"); };
 mainDecleration:        STARTMAIN spaces statements spaces ENDMAIN { printf("Main \n"); };
 structDecleration:      structDecleration spaces struct | struct;
-struct:                 STRUCT WORD NEWLINE variables spaces ENDSTRUCT { printf("Struct decleration\n"); } | TYPEDEF STRUCT WORD NEWLINE variables spaces WORD ENDSTRUCT { printf("Struct \n"); };
+struct:                 STRUCT WORD NEWLINE variables spaces ENDSTRUCT { printf("Struct decleration\n"); } 
+                        | TYPEDEF STRUCT WORD NEWLINE variables spaces WORD ENDSTRUCT { printf("Struct \n"); };
 
 statements:             statements spaces statement | statement | ;
 statement:              variable | expression | loop_statement | if_statement | switch | print | break | COMMENT { printf("Comments\n"); };
-loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While decleration\n"); } | FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For decleration\n"); };
+loop_statement:         WHILE L_PAR WORD condition expressions R_PAR NEWLINE statements NEWLINE ENDWHILE { printf("While decleration\n"); } 
+| FOR WORD ASSIGN_OPERATOR INT TO INT STEP INT NEWLINE statements NEWLINE ENDFOR { printf("For decleration\n"); };
 if_statement:           IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
                         | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE elseif NEWLINE ELSE NEWLINE statements NEWLINE ENDIF { printf("If \n"); }
                         | IF L_PAR WORD condition expressions R_PAR THEN NEWLINE statements NEWLINE ELSE statements NEWLINE ENDIF  { printf("If decleration\n"); };
 elseif:                 elseif NEWLINE ELSEIF NEWLINE statement | ELSEIF NEWLINE statement ;
-switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch decleration\n"); } | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
+switch:                 SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE statements ENDSWITCH { printf("Switch decleration\n"); } 
+                        | SWITCH L_PAR WORD R_PAR NEWLINE case NEWLINE DEFAULT COLON NEWLINE statements NEWLINE ENDSWITCH { printf("Switch \n"); };
 case:                   case NEWLINE CASE L_PAR expressions R_PAR COLON NEWLINE statement | CASE L_PAR expressions R_PAR COLON NEWLINE statement;
 
-print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("Something was printed\n"); } | PRINT L_PAR DITTOS txt DITTOS L_BRACKET COMMA WORD R_BRACKET R_PAR SEMICOLON { printf("Something was printed \n"); };
+print:                  PRINT L_PAR DITTOS txt DITTOS R_PAR SEMICOLON { printf("Something was printed\n"); } 
+                        | PRINT L_PAR DITTOS txt DITTOS L_BRACKET COMMA WORD R_BRACKET R_PAR SEMICOLON { printf("Something was printed \n"); };
 
 
 variables:              variables variable | variable | ;
@@ -87,7 +90,7 @@ int yyerror(char *s) {
 }
 
 int main(int argc, char **argv) {
-    printf("C Set Parser\n\n");
+    printf("C Parser\n\n");
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
     } else {

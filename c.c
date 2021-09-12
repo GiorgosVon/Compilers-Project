@@ -1,50 +1,46 @@
 PROGRAM program 
 
 STRUCT struct1
-VARS INT var65,var4[50],var3453;
-ENDSTRUCT 
+VARS INT var1,var2[3],var3;
+ENDSTRUCT
 
-FUNCTION function(INT a,INT b)
-VARS INT var1,var2,var45[10],var46;
-VARS CHAR var24,var[20]; 
-
-
-
-IF(a<1) THEN
-B=2;
-ELSEIF 
-B=3;
-ELSEIF
-B=4;
-ELSE 
-B=5;
-ENDIF
-
-
-
-SWITCH(b)
-CASE (1):
-c=1;
-CASE (2):
-c=2;
-CASE (3):
-c=3;
-DEFAULT:
-c=4;
-ENDSWITCH
+FUNCTION function(INT i,INT j)
+VARS INT var4,var5,var6[5],var7;
+VARS CHAR var8,var9[12]; 
 
 WHILE (var10<30)
 var5 = function1(var1,var2);
 PRINT("print execution"[,var5]);
 
-%sxolia
+IF(t<1) THEN
+var1=2;
+ELSEIF
+var1=3;
+ELSEIF
+var1=4;
+ELSE
+var1=5;
+ENDIF
+
+SWITCH(aplha)
+CASE (1):
+beta=1;
+CASE (2):
+beta=2;
+CASE (3):
+beta=3;
+DEFAULT:
+beta=4;
+ENDSWITCH
+
+
+%comments
 
 PRINT("HELLO WORLD"[,var5]);
 ENDWHILE
 
-FOR counter=1 TO 200 STEP 5
-var25=var4;
-PRINT("for executing"[,var25]);
+FOR counter=1 TO 30 STEP 3
+PRINT("for executing"[,var3]);
 ENDFOR
 
 %sxolia
@@ -52,22 +48,20 @@ ENDFOR
 IF(a<1) THEN
 BREAK; 
 ELSE 
-VAR67=30;
+VAR16=30;
 ENDIF
 
-RETURN b;
+RETURN j;
 END_FUNCTION
 
-FUNCTION function2(INT a,INT b)
-VARS INT var1,var2,var45[10],var46;
-RETURN b;
+FUNCTION foo(INT i,INT j)
+VARS INT var11,var12,var13[10],var12;
+RETURN j;
 END_FUNCTION
 
 
-
-
-STARTMAIN 
-VARS INT var100;
-var100=20;
+STARTMAIN
+VARS INT var21;
+var22=20;
 function(a,b);
 ENDMAIN
